@@ -25,12 +25,14 @@ public class BeerController implements BeerControllerDocs {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BeerDTO createBeer(@RequestBody @Valid BeerDTO beerDTO) throws BeerAlreadyRegisteredException {
+    public BeerDTO createBeer(@RequestBody @Valid BeerDTO beerDTO)
+    throws BeerAlreadyRegisteredException {
         return beerService.createBeer(beerDTO);
     }
 
     @GetMapping("/{name}")
-    public BeerDTO findByName(@PathVariable String name) throws BeerNotFoundException {
+    public BeerDTO findByName(@PathVariable String name)
+    throws BeerNotFoundException {
         return beerService.findByName(name);
     }
 

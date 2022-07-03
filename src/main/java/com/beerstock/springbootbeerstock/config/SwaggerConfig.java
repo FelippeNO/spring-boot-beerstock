@@ -16,29 +16,26 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @EnableSwagger2
 public class SwaggerConfig {
 
-    private static final String BASE_PACKAGE = "com.beerstock.springbootbeerstock";
+    private static final String BASE_PACKAGE = "com.beerstock" +
+            ".springbootbeerstock";
     private static final String API_TITLE = "Beer Stock API";
-    private static final String API_DESCRIPTION = "REST API for beer stock management";
+    private static final String API_DESCRIPTION =
+            "REST API for beer stock " + "management";
     private static final String CONTACT_NAME = "Felippe Negrão";
     private static final String CONTACT_GITHUB = "https://github.com/FelippeNO";
     private static final String CONTACT_EMAIL = "felippeno@gmail.com";
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(basePackage(BASE_PACKAGE))
-                .paths(PathSelectors.any())
-                .build()
-                .apiInfo(buildApiInfo());
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(basePackage(BASE_PACKAGE)).paths(PathSelectors.any())
+                .build().apiInfo(buildApiInfo());
     }
 
     private ApiInfo buildApiInfo() {
-        return new ApiInfoBuilder()
-                .title(API_TITLE)
-                .description(API_DESCRIPTION)
-                .version("1.0.0")
-                .contact(new Contact(CONTACT_NAME, CONTACT_GITHUB, CONTACT_EMAIL))
-                .build();
+        return new ApiInfoBuilder().title(API_TITLE)
+                .description(API_DESCRIPTION).version("1.0.0").contact(
+                        new Contact(CONTACT_NAME, CONTACT_GITHUB,
+                                CONTACT_EMAIL)).build();
     }
 }

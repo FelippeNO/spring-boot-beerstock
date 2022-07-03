@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class BeerNotFoundException extends Exception {
 
     public BeerNotFoundException(String beerName) {
-        super(String.format("Beer with name %s not found in the system.", beerName));
+        super(String.format("Beer with name %s not found in the system.",
+                beerName));
     }
 
     public BeerNotFoundException(Long id) {

@@ -10,8 +10,10 @@ public class JsonConvertionUtils {
     public static String asJsonString(Object bookDTO) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            objectMapper.configure(
+                    DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            objectMapper.configure(
+                    SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
             objectMapper.registerModules(new JavaTimeModule());
 
             return objectMapper.writeValueAsString(bookDTO);
