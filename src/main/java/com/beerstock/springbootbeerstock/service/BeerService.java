@@ -59,7 +59,7 @@ public class BeerService {
 
     private void verifyIfIsAlreadyRegistered(String name) throws BeerAlreadyRegisteredException {
         Optional<Beer> optSavedBeer = beerRepository.findByName(name);
-        if(optSavedBeer.isPresent()){
+        if (optSavedBeer.isPresent()) {
             throw new BeerAlreadyRegisteredException(name);
         }
     }

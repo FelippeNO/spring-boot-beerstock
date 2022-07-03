@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /*
-* Passo 1: Cadastro das entidades com as devidas anotações
-* para que o banco possa criá-las.
-* */
+ * Passo 1: Cadastro das entidades com as devidas anotações
+ * para que o banco possa criá-las.
+ * */
 
 @Data // Gera getters and setters.
 @Entity //Descreve a quantidade para o mapeamento na JPA.
