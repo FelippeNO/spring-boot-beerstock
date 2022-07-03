@@ -4,6 +4,7 @@ import com.beerstock.springbootbeerstock.builder.BeerDTOBuilder;
 import com.beerstock.springbootbeerstock.dto.BeerDTO;
 import com.beerstock.springbootbeerstock.entity.Beer;
 import com.beerstock.springbootbeerstock.exception.BeerAlreadyRegisteredException;
+import com.beerstock.springbootbeerstock.exception.BeerNotFoundException;
 import com.beerstock.springbootbeerstock.mapper.BeerMapper;
 import com.beerstock.springbootbeerstock.repository.BeerRepository;
 import org.junit.jupiter.api.Test;
@@ -62,4 +63,30 @@ public class BeerServiceTest {
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createBeer(expectedBeerDTO));
     }
 
+    @Test
+    void whenValidBeerNameIsGivenThenReturnABeer() throws BeerNotFoundException {
+        //given
+        BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+        Beer expectedFoundBeer = beerMapper.toModel(expectedBeerDTO);
+
+        //when
+        when(beerRepository.findByName(expectedFoundBeer.getName())).thenReturn(Optional.of(expectedFoundBeer));
+
+        //then
+        BeerDTO foundBeerDTO = beerService.findByName(expectedBeerDTO.getName());
+
+        assertThat(foundBeerDTO, is(equalTo(expectedBeerDTO)));
+    }
+
+    @Test
+    void whenNotRegisteredNameIsGivenThenThrowAnException() throws BeerNotFoundException {
+        //given
+        BeerDTO expectedBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+
+        //when
+        when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.empty());
+
+        //then
+        assertThrows(BeerNotFoundException.class, () -> beerService.findByName(expectedBeerDTO.getName()));
+    }
 }

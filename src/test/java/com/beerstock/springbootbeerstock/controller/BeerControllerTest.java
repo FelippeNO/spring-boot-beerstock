@@ -77,4 +77,5 @@ public class BeerControllerTest {
                         .content(asJsonString(beerDTO)))
                 .andExpect(status().isBadRequest());
     }
+
 }
