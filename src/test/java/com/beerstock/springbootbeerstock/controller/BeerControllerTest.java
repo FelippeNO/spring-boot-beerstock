@@ -2,6 +2,7 @@ package com.beerstock.springbootbeerstock.controller;
 
 import com.beerstock.springbootbeerstock.builder.BeerDTOBuilder;
 import com.beerstock.springbootbeerstock.dto.BeerDTO;
+import com.beerstock.springbootbeerstock.exception.BeerNotFoundException;
 import com.beerstock.springbootbeerstock.service.BeerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -98,6 +99,23 @@ public class BeerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name", is(beerDTO.getName())))
                 .andExpect(jsonPath("$.brand", is(beerDTO.getBrand())));
+    }
+
+    @Test
+    void whenGETIsCalledWithoutRegisteredNameThenNotFoundStatusIsReturned()
+    throws Exception {
+        // given
+        BeerDTO beerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
+
+        //when
+        when(beerService.findByName(beerDTO.getName())).thenThrow(
+                BeerNotFoundException.class);
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                                BEER_API_URL_PATH + "/" + beerDTO.getName())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
 }
